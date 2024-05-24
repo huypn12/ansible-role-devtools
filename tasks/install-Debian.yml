@@ -3,15 +3,16 @@
   ansible.builtin.apt:
     deb: https://packages.microsoft.com/config/{{ ansible_distribution }}/{{ ansible_distribution_major_version }}/packages-microsoft-prod.deb
     state: present
+  when: ansible_os_family|lower == 'debian'
 
 - name: Update apt repo data
   ansible.builtin.apt:
     update_cache: yes
 
-- name: Install Dotnet
+- name: Install Git
   ansible.builtin.apt:
     name:
-      - dotnet-sdk-8.0
+      - git
     state: present
 
 - name: Install kernel header
@@ -88,3 +89,10 @@
       - maven
       - gradle
     state: latest
+
+
+- name: Install Dotnet
+  ansible.builtin.apt:
+    name:
+      - dotnet-sdk-8.0
+    state: present
