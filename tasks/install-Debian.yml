@@ -30,7 +30,7 @@
       - cmake
       - vim
       - git
-      - ninja
+      - ninja-build
     state: latest
 
 - name: Install LLVM toolchain
