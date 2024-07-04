@@ -33,6 +33,14 @@
       - ninja-build
     state: latest
 
+- name: Install remote provisioning tools
+  ansible.builtin.apt:
+    name:
+      - ansible
+      - ansible-core
+      - ansible-lint
+    state: latest
+
 - name: Install LLVM toolchain
   ansible.builtin.apt:
     name:
