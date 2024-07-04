@@ -15,6 +15,14 @@
       - git
     state: present
 
+- name: Install remote provisioning tools
+  ansible.builtin.apt:
+    name:
+      - ansible
+      - ansible-core
+      - ansible-lint
+    state: latest
+
 - name: Install kernel header
   ansible.builtin.apt:
     name:
@@ -31,14 +39,6 @@
       - vim
       - git
       - ninja-build
-    state: latest
-
-- name: Install remote provisioning tools
-  ansible.builtin.apt:
-    name:
-      - ansible
-      - ansible-core
-      - ansible-lint
     state: latest
 
 - name: Install LLVM toolchain
@@ -100,9 +100,16 @@
     with_items:
       - 21
 
-
 - name: Install Dotnet
   ansible.builtin.apt:
     name:
-      - dotnet-sdk-8.0
-    state: present
+      - dotnet-sdk-{{ item }}
+    state: latest
+    with_items:
+      - 8.0
+
+- name: Install Golang
+  ansible.builtin.apt:
+    name:
+      - golang-go
+    state: latest
