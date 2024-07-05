@@ -91,22 +91,18 @@
     name:
       - maven
       - gradle
-      - "openjdk-{{ item }}-jdk"
-      - "openjdk-{{ item }}-doc"
-      - "openjdk-{{ item }}-demo"
-      - "openjdk-{{ item }}-dbg"
-      - "openjdk-{{ item }}-source"
+      - openjdk-21-jdk
+      - openjdk-21-doc
+      - openjdk-21-demo
+      - openjdk-21-dbg
+      - openjdk-21-source
     state: latest
-    with_items:
-      - 21
 
 - name: Install Dotnet
   ansible.builtin.apt:
     name:
-      - "dotnet-sdk-{{ item }}"
+      - dotnet-sdk-8.0
     state: latest
-    with_items:
-      - 8.0
 
 - name: Install Golang
   ansible.builtin.apt:
