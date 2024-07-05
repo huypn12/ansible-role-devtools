@@ -91,11 +91,11 @@
     name:
       - maven
       - gradle
-      - openjdk-{{ item }}-jdk
-      - openjdk-{{ item }}-doc
-      - openjdk-{{ item }}-demo
-      - openjdk-{{ item }}-dbg
-      - openjdk-{{ item }}-source
+      - "openjdk-{{ item }}-jdk"
+      - "openjdk-{{ item }}-doc"
+      - "openjdk-{{ item }}-demo"
+      - "openjdk-{{ item }}-dbg"
+      - "openjdk-{{ item }}-source"
     state: latest
     with_items:
       - 21
@@ -103,7 +103,7 @@
 - name: Install Dotnet
   ansible.builtin.apt:
     name:
-      - dotnet-sdk-{{ item }}
+      - "dotnet-sdk-{{ item }}"
     state: latest
     with_items:
       - 8.0
