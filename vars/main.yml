@@ -1,2 +1,5 @@
 ---
-# vars file for ansible-role-devtools/
+install_dotnet: false
+install_openjdk: false
+install_golang: true
+install_llvm: false

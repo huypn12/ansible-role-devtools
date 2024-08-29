@@ -3,25 +3,26 @@
   ansible.builtin.apt:
     deb: https://packages.microsoft.com/config/{{ ansible_distribution }}/{{ ansible_distribution_major_version }}/packages-microsoft-prod.deb
     state: present
-  when: ansible_distribution|lower == 'debian'
+  when: ansible_distribution|lower == 'debian' && dotnet
 
 - name: Update apt repo data
   ansible.builtin.apt:
     update_cache: yes
 
-- name: Install Git
-  ansible.builtin.apt:
-    name:
-      - git
-    state: present
-
-- name: Install remote provisioning tools
+- name: Install ansible
   ansible.builtin.apt:
     name:
       - ansible
       - ansible-core
       - ansible-lint
     state: latest
+
+- name: Install essential development tools
+  ansible.builtin.apt:
+    name:
+      - git
+      - vim
+    state: present
 
 - name: Install kernel header
   ansible.builtin.apt:
@@ -36,9 +37,30 @@
       - autotools-dev
       - autoconf
       - cmake
-      - vim
-      - git
       - ninja-build
+      - valgrind
+      - systemtap
+      - ltrace
+      - strace
+    state: latest
+
+- name: Install Python build dependencies
+  ansible.builtin.apt:
+    name:
+      - libssl-dev
+      - libffi-dev
+      - python3-dev
+      - zlib1g-dev
+      - libbz2-dev
+      - libreadline-dev
+      - libsqlite3-dev
+      - curl
+      - libncursesw5-dev
+      - xz-utils
+      - tk-dev
+      - libxml2-dev
+      - libxmlsec1-dev
+      - liblzma-dev
     state: latest
 
 - name: Install LLVM toolchain
@@ -66,46 +88,29 @@
       - llvm
       - python3-clang
     state: latest
-
-- name: Install Python build dependencies
-  ansible.builtin.apt:
-    name:
-      - libssl-dev
-      - libffi-dev
-      - python3-dev
-      - zlib1g-dev
-      - libbz2-dev
-      - libreadline-dev
-      - libsqlite3-dev
-      - curl
-      - libncursesw5-dev
-      - xz-utils
-      - tk-dev
-      - libxml2-dev
-      - libxmlsec1-dev
-      - liblzma-dev
-    state: latest
+  when: install_llvm
 
 - name: Install OpenJDK
   ansible.builtin.apt:
     name:
       - maven
       - gradle
-      - openjdk-21-jdk
-      - openjdk-21-doc
-      - openjdk-21-demo
-      - openjdk-21-dbg
-      - openjdk-21-source
+      - default-jdk
+      - default-jdk-doc
+      - default-jdk-headless
     state: latest
+  when: install_openjdk
 
 - name: Install Dotnet
   ansible.builtin.apt:
     name:
       - dotnet-sdk-8.0
     state: latest
+  when: install_dotnet
 
 - name: Install Golang
   ansible.builtin.apt:
     name:
       - golang-go
     state: latest
+  when: install_golang
