@@ -3,7 +3,7 @@
   ansible.builtin.apt:
     deb: https://packages.microsoft.com/config/{{ ansible_distribution }}/{{ ansible_distribution_major_version }}/packages-microsoft-prod.deb
     state: present
-  when: ansible_distribution|lower == 'debian' && dotnet
+  when: (ansible_distribution|lower == 'debian') and install_dotnet
 
 - name: Update apt repo data
   ansible.builtin.apt:
