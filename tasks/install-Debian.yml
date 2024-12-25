@@ -46,7 +46,7 @@
       - libssl-dev
       - libelf-dev
       - libudev-dev
-      - libpci-dev,
+      - libpci-dev
       - libiberty-dev
       - libffi-dev
       - python3-dev
